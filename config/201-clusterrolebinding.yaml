@@ -26,3 +26,22 @@ roleRef:
   kind: ClusterRole
   name: binding-system-admin
   apiGroup: rbac.authorization.k8s.io
+
+---
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: sink-binding-source-observer
+  labels:
+    duck.knative.dev/source: "true"
+# Do not use this role directly. These rules will be added to the "source-observer" role.
+rules:
+  - apiGroups:
+      - bindings.mattmoor.dev
+    resources:
+      - sinkbindings
+    verbs:
+      - get
+      - list
+      - watch
